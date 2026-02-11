@@ -23,7 +23,6 @@ content:"";
 position:fixed;
 width:100%;
 height:100%;
-background:transparent;
 box-shadow:
 40px 80px white,
 180px 200px white,
@@ -31,17 +30,11 @@ box-shadow:
 500px 300px white,
 700px 100px white,
 900px 250px white;
-animation:twinkle 4s infinite alternate;
 opacity:0.5;
 z-index:0;
 }
 
-@keyframes twinkle{
-from{opacity:0.3;}
-to{opacity:0.9;}
-}
-
-/* Intro */
+/* INTRO */
 #intro{
 position:fixed;
 width:100%;
@@ -51,16 +44,19 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:9999;
-animation:fadeOut 4s forwards 3s;
-}
-
-@keyframes fadeOut{
-to{opacity:0; visibility:hidden;}
+transition:opacity 1.5s ease;
 }
 
 .intro-text{
 font-family:'Great Vibes',cursive;
-font-size:32px;
+font-size:34px;
+text-align:center;
+opacity:0;
+animation:fadeIn 2s forwards;
+}
+
+@keyframes fadeIn{
+to{opacity:1;}
 }
 
 /* Pages */
@@ -74,7 +70,6 @@ padding:12px;
 position:relative;
 z-index:1;
 }
-
 .active{display:flex;}
 
 .card-box{
@@ -87,7 +82,6 @@ max-width:340px;
 box-shadow:0 0 25px rgba(255,105,180,0.3);
 }
 
-/* Smaller Fonts */
 .title{
 font-family:'Great Vibes',cursive;
 font-size:30px;
@@ -100,7 +94,6 @@ font-size:34px;
 animation:glow 2s infinite alternate;
 margin-bottom:5px;
 }
-
 @keyframes glow{
 from{text-shadow:0 0 8px #ff4e8d;}
 to{text-shadow:0 0 18px #ffd700;}
@@ -118,34 +111,22 @@ border-radius:15px;
 margin:8px 0;
 }
 
-/* Buttons */
-.next-btn, .yes-btn, .no-btn{
-padding:6px 18px;
-border-radius:20px;
-font-size:13px;
-margin-top:8px;
-border:none;
-color:white;
-}
-
-.next-btn{
-background:linear-gradient(45deg,#ff4e8d,#ff758c);
-}
-
-.proposal-buttons{
+/* Side Nav */
+.side-nav{
+position:fixed;
+top:0;
+width:50px;
+height:100vh;
 display:flex;
+align-items:center;
 justify-content:center;
-gap:12px;
-margin-top:10px;
+font-size:22px;
+color:white;
+opacity:0.4;
+z-index:5;
 }
-
-.yes-btn{
-background:#ff4e8d;
-}
-
-.no-btn{
-background:#666;
-}
+.left-nav{left:0;}
+.right-nav{right:0;}
 
 /* Ring */
 .ring{
@@ -153,12 +134,28 @@ font-size:38px;
 animation:ringPulse 1.5s infinite;
 margin:5px 0;
 }
-
 @keyframes ringPulse{
 0%{transform:scale(1);}
 50%{transform:scale(1.15);}
 100%{transform:scale(1);}
 }
+
+/* Proposal Buttons */
+.proposal-buttons{
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:10px;
+}
+.yes-btn,.no-btn{
+padding:6px 18px;
+border-radius:20px;
+font-size:13px;
+border:none;
+color:white;
+}
+.yes-btn{background:#ff4e8d;}
+.no-btn{background:#666;}
 
 /* Floating Emojis */
 .romantic-float{
@@ -169,7 +166,6 @@ animation:floatRomantic linear forwards;
 opacity:0.8;
 pointer-events:none;
 }
-
 @keyframes floatRomantic{
 0%{transform:translateY(0);opacity:0;}
 20%{opacity:1;}
@@ -192,8 +188,11 @@ animation:boom 1s ease-out forwards;
 <body>
 
 <div id="intro">
-<div class="intro-text">Under The Night Sky 🌙</div>
+<div class="intro-text">Under The Same Night Sky 🌙❤️</div>
 </div>
+
+<div class="side-nav left-nav" onclick="prevPage()">❮</div>
+<div class="side-nav right-nav" onclick="nextPage()">❯</div>
 
 <audio id="bgMusic" src="music.mp3" loop></audio>
 <audio id="heartbeat" src="heartbeat.mp3"></audio>
@@ -204,7 +203,6 @@ animation:boom 1s ease-out forwards;
 <div class="glow-name">Saathvi ✨</div>
 <img src="us1.png">
 <p>I promise to love you beyond the stars ⭐</p>
-<button class="next-btn" onclick="nextPage(2)">Next 🌙</button>
 </div>
 </div>
 
@@ -213,7 +211,6 @@ animation:boom 1s ease-out forwards;
 <h2 class="title">My Forever 💞</h2>
 <img src="us2.png">
 <p>You are my moon in every dark night 🌙</p>
-<button class="next-btn" onclick="nextPage(3)">Next 💕</button>
 </div>
 </div>
 
@@ -231,29 +228,37 @@ animation:boom 1s ease-out forwards;
 
 <script>
 
-/* Music */
+/* Intro Fix */
+window.onload = function(){
 setTimeout(()=>{
+document.getElementById("intro").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
 document.getElementById("bgMusic").play().catch(()=>{});
+},1500);
 },3000);
+};
 
 let currentPage=1;
+const totalPages=3;
 
-function nextPage(num){
+function showPage(num){
 document.getElementById("page"+currentPage).classList.remove("active");
 currentPage=num;
 document.getElementById("page"+currentPage).classList.add("active");
+}
 
-if(navigator.vibrate) navigator.vibrate(80);
+function nextPage(){
+if(currentPage<totalPages) showPage(currentPage+1);
+}
+function prevPage(){
+if(currentPage>1) showPage(currentPage-1);
 }
 
 /* Swipe */
 var hammer=new Hammer(document.body);
-hammer.on("swipeleft",function(){
-if(currentPage<3) nextPage(currentPage+1);
-});
-hammer.on("swiperight",function(){
-if(currentPage>1) nextPage(currentPage-1);
-});
+hammer.on("swipeleft",()=>nextPage());
+hammer.on("swiperight",()=>prevPage());
 
 function yesLove(){
 document.getElementById("heartbeat").play().catch(()=>{});
@@ -281,7 +286,6 @@ setTimeout(()=>{fw.remove();},1000);
 
 /* Floating Emojis */
 const romanticEmojis=["💖","💕","❤️","✨","💫","🌙","⭐","💍"];
-
 setInterval(()=>{
 let emoji=document.createElement("div");
 emoji.classList.add("romantic-float");
