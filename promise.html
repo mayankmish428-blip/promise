@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>For Saathvi ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(to bottom,#0f0c29,#302b63,#24243e);
+color:white;
+}
+
+/* Stars Background */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:transparent;
+box-shadow:
+50px 100px white,
+200px 300px white,
+400px 150px white,
+600px 400px white,
+800px 200px white,
+1000px 350px white,
+1200px 100px white,
+1400px 300px white;
+animation:twinkle 4s infinite alternate;
+opacity:0.6;
+}
+
+@keyframes twinkle{
+from{opacity:0.4;}
+to{opacity:1;}
+}
+
+/* Cinematic Intro */
+#intro{
+position:fixed;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeOut 5s forwards 4s;
+}
+
+@keyframes fadeOut{
+to{opacity:0; visibility:hidden;}
+}
+
+.intro-text{
+font-family:'Great Vibes',cursive;
+font-size:45px;
+animation:fadeIn 3s forwards;
+opacity:0;
+}
+
+@keyframes fadeIn{
+to{opacity:1;}
+}
+
+/* Flash */
+.flash{
+position:fixed;
+width:100%;
+height:100%;
+background:white;
+top:0;
+left:0;
+opacity:0;
+pointer-events:none;
+}
+
+.flash.active{
+animation:flashAnim 0.6s;
+}
+
+@keyframes flashAnim{
+0%{opacity:1;}
+100%{opacity:0;}
+}
+
+/* Pages */
+.page{
+min-height:100vh;
+display:none;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.active{display:flex;}
+
+.card-box{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+border-radius:30px;
+padding:25px;
+max-width:380px;
+width:100%;
+box-shadow:0 0 40px rgba(255,105,180,0.3);
+}
+
+.title{
+font-family:'Great Vibes',cursive;
+font-size:42px;
+}
+
+.glow-name{
+font-family:'Great Vibes',cursive;
+font-size:48px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px #ff4e8d;}
+to{text-shadow:0 0 30px #ffd700;}
+}
+
+img{
+width:100%;
+max-width:280px;
+border-radius:20px;
+margin:15px 0;
+}
+
+/* Buttons */
+.next-btn{
+background:linear-gradient(45deg,#ff4e8d,#ff758c);
+border:none;
+padding:10px 30px;
+border-radius:50px;
+color:white;
+margin-top:15px;
+}
+
+.proposal-buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:20px;
+}
+
+.yes-btn{
+background:#ff4e8d;
+border:none;
+padding:10px 25px;
+border-radius:30px;
+color:white;
+}
+
+.no-btn{
+background:#555;
+border:none;
+padding:10px 25px;
+border-radius:30px;
+color:white;
+}
+
+/* Ring */
+.ring{
+font-size:55px;
+animation:ringPulse 1.5s infinite;
+}
+@keyframes ringPulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
+/* Floating Romantic Emojis */
+.romantic-float{
+position:fixed;
+bottom:-50px;
+font-size:22px;
+opacity:0.8;
+animation:floatRomantic linear forwards;
+pointer-events:none;
+}
+
+@keyframes floatRomantic{
+0%{transform:translateY(0) scale(0.8);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-110vh) scale(1.2);opacity:0;}
+}
+
+/* Fireworks */
+.firework{
+position:fixed;
+font-size:30px;
+animation:boom 1s ease-out forwards;
+}
+@keyframes boom{
+0%{transform:scale(0);}
+100%{transform:scale(3); opacity:0;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="intro">
+<div class="intro-text">Under The Same Night Sky 🌙❤️</div>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+<audio id="heartbeat" src="heartbeat.mp3"></audio>
+
+<div class="page active" id="page1">
+<div class="card-box">
+<h1 class="title">Happy Promise Day 💍</h1>
+<div class="glow-name">Saathvi ✨</div>
+<img src="us1.png">
+<p>I promise to love you beyond the stars ⭐</p>
+<button class="next-btn" onclick="nextPage(2)">Next 🌙</button>
+</div>
+</div>
+
+<div class="page" id="page2">
+<div class="card-box">
+<h2 class="title">My Forever Promise 💞</h2>
+<img src="us2.png">
+<p>You are my moon in the darkest night 🌙</p>
+<button class="next-btn" onclick="nextPage(3)">Next 💕</button>
+</div>
+</div>
+
+<div class="page" id="page3">
+<div class="card-box">
+<h2 class="title">Will You Stay With Me? 💍</h2>
+<div class="ring">💍</div>
+<img src="us3.png">
+<div class="proposal-buttons">
+<button class="yes-btn" onclick="yesLove()">YES 💖</button>
+<button class="no-btn">NO 💔</button>
+</div>
+</div>
+</div>
+
+<script>
+
+/* Music */
+setTimeout(()=>{
+document.getElementById("bgMusic").play();
+},4000);
+
+let currentPage=1;
+
+function nextPage(num){
+document.getElementById("flash").classList.add("active");
+setTimeout(()=>{document.getElementById("flash").classList.remove("active");},600);
+
+document.getElementById("page"+currentPage).classList.remove("active");
+currentPage=num;
+document.getElementById("page"+currentPage).classList.add("active");
+
+if(navigator.vibrate) navigator.vibrate(100);
+}
+
+/* Swipe */
+var hammer=new Hammer(document.body);
+hammer.on("swipeleft",function(){
+if(currentPage<3) nextPage(currentPage+1);
+});
+hammer.on("swiperight",function(){
+if(currentPage>1) nextPage(currentPage-1);
+});
+
+function yesLove(){
+document.getElementById("heartbeat").play();
+fireworks();
+Swal.fire({
+title:"She Said YES! 💖",
+text:"Forever Under The Stars 🌙✨",
+confirmButtonText:"I Love You ❤️",
+background:"#1e1e3f",
+color:"#fff"
+});
+}
+
+function fireworks(){
+for(let i=0;i<25;i++){
+let fw=document.createElement("div");
+fw.classList.add("firework");
+fw.innerHTML="🎆";
+fw.style.left=Math.random()*100+"vw";
+fw.style.top=Math.random()*100+"vh";
+document.body.appendChild(fw);
+setTimeout(()=>{fw.remove();},1000);
+}
+}
+
+/* Floating Romantic Emojis */
+const romanticEmojis=["💖","💕","❤️","✨","💫","🌙","⭐","💍"];
+
+setInterval(()=>{
+let emoji=document.createElement("div");
+emoji.classList.add("romantic-float");
+emoji.innerHTML=romanticEmojis[Math.floor(Math.random()*romanticEmojis.length)];
+emoji.style.left=Math.random()*100+"vw";
+emoji.style.fontSize=(18+Math.random()*25)+"px";
+emoji.style.animationDuration=(8+Math.random()*6)+"s";
+document.body.appendChild(emoji);
+setTimeout(()=>{emoji.remove();},15000);
+},1200);
+
+</script>
+
+</body>
+</html>
